@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel</title>
+  <script type="module" src="admin.js"></script>
+  <style>
+    #progress-bar {
+      width: 100%;
+      background-color: red;
+    }
+    #progress-bar div {
+      height: 20px;
+      width: 0;
+      background-color: #4caf50;
+      text-align: center;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome, Admin!</h1>
+  <button id="logout-button">Log Out</button> <!-- Updated button with the correct ID -->
+
+  <h1>Upload and Manage Files</h1>
+  <form id="upload-form">
+    <label for="file">Choose file:</label>
+    <input type="file" id="file" name="file" required>
+    <label for="file-description">Description:</label>
+    <input type="text" id="file-description" name="file-description" required>
+    <button type="submit">Upload</button>
+  </form>
+
+  <div id="progress-bar">
+    <div id="progress-text">0%</div>
+  </div>
+
+  <h2>File List</h2>
+  <ul id="file-list"></ul>
+</body>
+</html>

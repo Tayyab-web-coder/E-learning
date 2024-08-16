@@ -21,7 +21,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
 const auth = getAuth(app);
-const functions = getFunctions(app); // Initialize Firebase Functions
+// const functions = getFunctions(app); // Initialize Firebase Functions
 
 // DOM Elements
 const courseForm = document.getElementById('course-form');

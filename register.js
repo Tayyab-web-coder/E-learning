@@ -16,45 +16,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const password = passwordInput.value;
     let strength = 0;
 
-    if (password.length > 8) strength += 1;
+    if (password.length >= 8) strength += 1;
     if (/[A-Z]/.test(password)) strength += 1;
     if (/[0-9]/.test(password)) strength += 1;
     if (/[^A-Za-z0-9]/.test(password)) strength += 1;
 
     // Update strength bar and message
     Array.from(strengthBar).forEach((div, index) => {
+      div.classList.remove('weak', 'moderate', 'strong');
       if (index < strength) {
-        div.classList.add('strong');
-        div.classList.remove('weak', 'moderate');
-      } else {
-        div.classList.remove('strong', 'weak', 'moderate');
-        if (index === 0 && strength === 1) div.classList.add('weak');
-        if (index === 1 && strength === 2) div.classList.add('moderate');
+        div.classList.add(index === 0 ? 'weak' : (index === 1 ? 'moderate' : 'strong'));
       }
     });
 
     // Update message box
     if (password.length === 0) {
       messagebox.style.visibility = 'hidden';
+    } else if (password.length < 8) {
+      message.innerHTML = 'Password must be at least 8 characters';
+      messagebox.style.visibility = 'visible';
+      messagebox.style.color = 'red';
+      warnIcon.style.border = '2px solid red';
+    } else if (strength < 3) {
+      message.innerHTML = 'Password is moderate';
+      messagebox.style.visibility = 'visible';
+      messagebox.style.color = 'black';
+      warnIcon.style.border = '2px solid black';
     } else {
-      if (password.length >= 3) {
-        message.innerHTML = 'Password must be at least 8 characters';
-        messagebox.style.visibility = 'visible';
-        messagebox.style.color = 'red';
-        warnIcon.style.border = '2px solid red';
-      }
-      if (password.length >= 8) {
-        message.innerHTML = 'Password is moderate';
-        messagebox.style.visibility = 'visible';
-        messagebox.style.color = 'black';
-        warnIcon.style.border = '2px solid black';
-      }
-      if (password.length >= 10) {
-        message.innerHTML = 'Password is strong';
-        messagebox.style.visibility = 'visible';
-        messagebox.style.color = 'black';
-        warnIcon.style.border = '2px solid black';
-      }
+      message.innerHTML = 'Password is strong';
+      messagebox.style.visibility = 'visible';
+      messagebox.style.color = 'black';
+      warnIcon.style.border = '2px solid black';
     }
 
     // Toggle strength icon
@@ -89,12 +81,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const password = passwordInput.value;
 
     try {
+      // Create user
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const userId = userCredential.user.uid;
       const role = email === 'muhammadnadeem34949@gmail.com' ? 'admin' : 'user';
 
+      // Save user data to Firestore
       await setDoc(doc(db, 'users', userId), { role, email, firstName, lastName });
 
+      // Redirect based on role
       if (role === 'admin') {
         window.location.href = 'admin.html';
       } else {
@@ -117,6 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const docSnapshot = await getDoc(userDocRef);
         if (docSnapshot.exists()) {
           const userData = docSnapshot.data();
+          console.log('User data:', userData); // Add this line to verify user data
+
           if (userData.role === 'admin') {
             window.location.href = 'admin.html';
           } else {
@@ -133,8 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (pendingCourseId) {
         window.location.href = `courseplay.html?id=${pendingCourseId}`;
         sessionStorage.removeItem('pendingCourseId');
-      } else {
-        window.location.href = 'user.html';
       }
     }
   });

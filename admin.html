@@ -215,12 +215,23 @@
     <button type="submit">Submit</button>
   </form>
 
-  <!-- Notification Form -->
-  <div id="notification-form">
-    <h2>Send Notification</h2>
-    <textarea id="notification-message" placeholder="Notification Message" required></textarea>
-    <button id="send-notification">Send Notification</button>
-  </div>
+<!-- Email Notification Form -->
+<div id="email-notification-form">
+  <h2>Send Email Notification</h2>
+  <form id="emailForm">
+    <label for="recipientEmail">Recipient Email:</label>
+    <input type="email" id="recipientEmail" required>
+
+    <label for="subject">Subject:</label>
+    <input type="text" id="subject" required>
+
+    <label for="message">Message:</label>
+    <textarea id="message" required></textarea>
+
+    <button type="submit">Send Email</button>
+  </form>
+</div>
+
 
   <!-- Course List -->
   <ul id="course-list"></ul>

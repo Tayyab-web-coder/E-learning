@@ -3,6 +3,9 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.20.0/firebas
 import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, getDocs, getDoc } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-firestore.js';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-storage.js';
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js';
+// import { getFunctions, httpsCallable } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-functions.js'; // Import functions
+// import firebase from 'firebase/app';
+// import './firebase/functions';/
 
 const firebaseConfig = {
   apiKey: "AIzaSyCbJxbCxOnHSOBFzapebKOvLaPPlNidk38",
@@ -18,6 +21,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
 const auth = getAuth(app);
+const functions = getFunctions(app); // Initialize Firebase Functions
 
 // DOM Elements
 const courseForm = document.getElementById('course-form');
@@ -28,8 +32,8 @@ const courseImgPreview = document.getElementById('course-img-preview');
 const videoFieldsContainer = document.getElementById('video-fields');
 const addVideoButton = document.getElementById('add-video');
 const courseList = document.getElementById('course-list');
-// const auth = getAuth();
 
+// Handle Authentication
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     const userEmail = user.email;
@@ -58,6 +62,7 @@ onAuthStateChanged(auth, async (user) => {
     console.log('No user is signed in.');
   }
 });
+
 // Add Video Fields
 let videoIndex = 1;
 addVideoButton.addEventListener('click', () => {
@@ -177,7 +182,7 @@ async function loadCourses() {
       const data = doc.data();
       const listItem = document.createElement('li');
       listItem.innerHTML = `
-        <img src=${data.image} alt="Course Image" style="max-width: 100px;">
+        <img src="${data.image}" alt="Course Image" style="max-width: 100px;">
         <h4>${data.name}</h4>
         <p>${data.description}</p>
         <button data-id="${doc.id}" class="edit-btn">Edit</button>
@@ -191,7 +196,7 @@ async function loadCourses() {
   }
 }
 
-// Setup Edit and Delete Buttons
+// Complete the delete button functionality
 function setupEditDeleteButtons() {
   document.querySelectorAll('.edit-btn').forEach(button => {
     button.addEventListener('click', async (e) => {
@@ -230,4 +235,41 @@ function setupEditDeleteButtons() {
 }
 
 // Initial Load of Courses
-// This function call is now handled within the onAuthStateChanged callback after authentication is verified
+loadCourses();
+// Email Notification Functionality
+const emailForm = document.getElementById('emailForm');
+const recipientEmailInput = document.getElementById('recipientEmail');
+const subjectInput = document.getElementById('subject');
+const messageInput = document.getElementById('message');
+
+emailForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  // Make an API call to your server to send an email using SendGrid
+  fetch('/send-email', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      recipientEmail: recipientEmailInput.value,
+      subject: subjectInput.value,
+      message: messageInput.value
+    })
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Failed to send email');
+    }
+  })
+  .then(data => {
+    console.log('Email sent successfully:', data);
+    alert('Email sent successfully!');
+  })
+  .catch(error => {
+    console.error('Error sending email:', error);
+    alert('Error sending email. Please try again.');
+  });
+});

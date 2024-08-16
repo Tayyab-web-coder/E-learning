@@ -3,18 +3,15 @@ import { getAuth, sendPasswordResetEmail, onAuthStateChanged, signInWithEmailAnd
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js';
 import { getFirestore, getDoc, doc } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-firestore.js';
 
-// Your Firebase configuration object
+// Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAK0mP5w6lM2iiKeQ1CB_C5ioAaL_bHYvk",
-  authDomain: "auth-6d815.firebaseapp.com",
-  projectId: "auth-6d815",
-  storageBucket: "auth-6d815.appspot.com",
-  messagingSenderId: "518272025027",
-  appId: "1:518272025027:web:bade58467c388fe1b43d76",
-  measurementId: "G-3WTYL1FCGV"
-};
-
-// Initialize Firebase
+  apiKey: "AIzaSyCbJxbCxOnHSOBFzapebKOvLaPPlNidk38",
+  authDomain: "e-learning-686ec.firebaseapp.com",
+  projectId: "e-learning-686ec",
+  storageBucket: "e-learning-686ec.appspot.com",
+  messagingSenderId: "382965941769",
+  appId: "1:382965941769:web:27e461560b9af27fa15ad8"
+};// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);  // Initialize Firestore
@@ -41,20 +38,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Handle forgot password
-document.getElementById('forgot-password').addEventListener('click', (e) => {
+document.getElementById('forgot-password').addEventListener('click', async (e) => {
   e.preventDefault();
   const email = document.getElementById('login-email').value;
   if (email) {
-      sendPasswordResetEmail(auth, email)
-          .then(() => {
-              alert('Password reset email sent!');
-          })
-          .catch((error) => {
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              console.error('Error:', errorCode, errorMessage);
-              alert('Error sending password reset email. Please try again.');
-          });
+      try {
+          await sendPasswordResetEmail(auth, email);
+          alert('Password reset email sent!');
+      } catch (error) {
+          console.error('Error:', error.code, error.message);
+          alert('Error sending password reset email. Please try again.');
+      }
   } else {
       alert('Please enter your email address.');
   }
@@ -87,6 +81,7 @@ async function handleUserRedirection(user) {
           window.location.replace(redirectUrl);
       } else {
           isRegistering = true;
+          // Handle non-existent user scenario (e.g., redirect to registration)
           window.location.replace('register.html');
       }
   } catch (error) {
@@ -164,7 +159,8 @@ document.getElementById('facebook-login').addEventListener('click', async (e) =>
   const provider = new FacebookAuthProvider();
   try {
     const result = await signInWithPopup(auth, provider);
-    const userDoc = await getDoc(doc(db, 'users', result.user.uid));
+    const user = result.user;
+    const userDoc = await getDoc(doc(db, 'users', user.uid));
     if (userDoc.exists()) {
       const role = userDoc.data().role;
       const redirectUrl = role === 'admin' ? 'admin.html' : 'user.html';

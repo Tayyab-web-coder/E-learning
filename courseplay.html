@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Page</title>
+    <script type="module" src="courseplay.js" defer></script>
+    <style>
+      @font-face {
+    font-family: Roboto-Regular;
+    src: url(./font/Roboto-Regular.ttf);
+}
+        body {
+            font-family: Roboto-Regular;
+            margin: 0;
+            padding: 0;
+            background: rgb(240, 235, 242);
+            text-align: center;
+        }
+        .container {
+            max-width: 65%;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0px 4px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 28px;
+            color: #333;
+            font-weight: 900;
+        }
+        p {
+            font-size: 18px;
+            color: #555;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+        #start-learning-button {
+            padding: 15px 25px;
+            font-size: 16px;
+            color: #fff;
+            background: linear-gradient(140deg, #B06DF5, rgba(252, 98, 241, 0.9));
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        #start-learning-button:hover {
+          background: linear-gradient(140deg, #a14ff4, rgba(251, 82, 240, 0.9));
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Congratulations!</h1>
+        <p id="message">You have successfully enrolled in the course.</p>
+        <button id="start-learning-button">Start Learning</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,309 @@
+/* Reset and general styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: Roboto-Bold;
+    src: url(./font/Roboto-Bold.ttf);
+}
+
+@font-face {
+    font-family: Roboto-Regular;
+    src: url(./font/Roboto-Regular.ttf);
+}
+
+body {
+    font-family: Roboto-Bold;
+    background-color: #f4f4f4;
+}
+
+header {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    padding: 0px 50px;
+    gap: 20px;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.nav-left h1 {
+    font-family: Roboto-Bold;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: -2;
+}
+
+#search-bar {
+    width: 220px;
+    height: 40px;
+    border: 2px solid black;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+#search-bar::placeholder {
+    font-family: Roboto-Regular;
+    color: #822dd8;
+    font-weight: 800;
+}
+
+#category-filter {
+    font-family: Roboto-Regular;
+    color: #822dd8;
+    font-weight: 800;
+    padding: 5px;
+    font-size: 16px;
+    border: 2px solid black;
+    border-radius: 5px;
+    outline: none;
+    position: absolute;
+    right: 30px;
+    margin-bottom: 50px;
+    top: 130px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    padding-right: 50px;
+}
+
+.notification-icon {
+    font-size: 24px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.user-icon {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+#user-initials {
+    background: linear-gradient(140deg, #B06DF5, rgba(252, 98, 241, 0.9));
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 50%;
+    font-family: Roboto-Regular;
+    font-weight: 900;
+    position: absolute;
+    top: -20px;
+}
+
+/* Dropdown default state (hidden) */
+.dropdown {
+    text-align: center;
+    display: none;
+    position: absolute;
+    top: 40px; /* Adjust as needed */
+    right: -80px;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1000;
+    min-width: 150px; /* Minimum width for the dropdown */
+}
+
+/* Dropdown shown state */
+.dropdownToggler {
+    display: block; /* Show the dropdown when toggled */
+}
+
+/* Ensure dropdown buttons have proper styling */
+.dropdown button {
+    display: block;
+    background-color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-family: Roboto-Regular;
+}
+
+.dropdown button:hover {
+    background-color: #f4f4f4;
+}
+
+.banner {
+    background: linear-gradient(140deg, #B06DF5, rgba(252, 98, 241, 0.9));
+    color: white;
+    padding: 40px 70px;
+    color: #000;
+    font-size: 20px;
+    /* margin-top: 500px; */
+}
+
+.enrolled-courses-section,
+.available-courses-section {
+    margin: 20px 20px;
+}
+
+.available-courses-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+}
+
+h2 {
+    text-align: center;
+    padding: 50px 0px;
+    font-family: Roboto-Bold;
+    font-weight: 900;
+    font-size: 30px;
+}
+
+.enrolled-courses-section {
+    display: flex;
+    flex-direction: column;
+}
+
+#enrolled-courses,
+#course-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0px 50px;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+#course-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+#enrolled-courses .course-item,
+#course-list .course-item {
+    width: 350px;
+    height: 410px;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+}
+
+.course-item .course-item-img {
+    width: 93%;
+    object-fit: cover;
+    height: 200px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.course-item h1 {
+    width: 100px;
+    text-align: left;
+    margin-right: 120px;
+    font-family: Roboto-Regular;
+    font-weight: 900;
+    width: 50%;
+}
+
+.course-item .course-info {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    padding: 25px 25px;
+}
+
+.course-item .course-info span {
+    font-family: Roboto-Regular;
+    font-weight: 800;
+}
+
+.course-info span i {
+    color: #9948ea;
+    background: transparent;
+    margin-right: 8px;
+}
+
+.course-item .line {
+    width: 100%;
+    height: 2px;
+    background: #ecd0ec;
+}
+
+#explore-more-button {
+    padding: 15px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 20px auto;
+    display: block;
+    background: linear-gradient(140deg, #B06DF5, rgba(252, 98, 241, 0.9));
+    font-family: Roboto-Regular;
+    cursor: pointer;
+    font-weight: 900;
+    transition: all 1s ease;
+}
+
+#explore-more-button a {
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 18px;
+    color: #000;
+}
+
+#explore-more-button:hover {
+    background: linear-gradient(140deg, #a757f8, rgba(248, 76, 236, 0.9));
+}
+
+/* Loader styling */
+.loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #B06DF5;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@media (max-width:768px) {
+    nav{
+        padding: 0;
+    }
+    .nav-left{
+        gap: 10px;
+    }
+    #search-bar{
+        width: 150px;
+    }
+}

@@ -1,106 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Panel</title>
-  <script type="module" src="admin.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     /* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @font-face {
+      font-family: 'Roboto-Regular';
+      src: url('./font/Roboto-Regular.ttf');
+    }
+
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f4f6f9;
+      font-family: 'Roboto-Regular', sans-serif;
+      background-color: #f0f2f5;
+      color: #333;
       margin: 0;
       padding: 20px;
-      color: #333;
     }
 
     h1 {
       text-align: center;
       margin-bottom: 30px;
-      color: #4a4a4a;
+      color: #333;
     }
 
-    /* Form Styles */
+    /* Container Styles */
+    .form-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
     form {
-      background: #fff;
       padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      margin: 0 auto 30px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      position: relative;
     }
 
-    input, textarea, select, button {
+    form h2 {
+      margin-bottom: 20px;
+      font-size: 1.75rem;
+      color: #822dd8;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 10px;
+    }
+
+    /* Input Styles */
+    input,
+    textarea,
+    select,
+    button {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
+      padding: 12px;
+      border: 2px solid black;
+      border-radius: 6px;
       font-size: 1rem;
+      margin-bottom: 15px;
+      transition: border-color 0.3s ease;
     }
 
-    input:focus, textarea:focus, select:focus {
-      border-color: #3498db;
+    input:focus,
+    textarea:focus,
+    select:focus {
+      /* border-color: #7506e4; */
       outline: none;
     }
 
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    /* Button Styles */
     button {
-      background-color: #3498db;
+      background-color: #822dd8;
       color: white;
       border: none;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      font-size: 1rem;
+      padding: 12px;
     }
 
     button:hover {
+      background-color: #6a1b9a;
+      transform: scale(1.02);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    /* Icon Styles */
+    .form-container i {
+      color: #822dd8;
+      margin-right: 8px;
+    }
+
+    /* PDF Upload Form */
+    #pdf-upload-form {
+      border: 2px dashed #822dd8;
+      padding: 20px;
+      background-color: #f9f9f9;
+      position: relative;
+    }
+
+    #pdf-upload-form input[type="file"] {
+      border: 2px solid #822dd8;
+      background: #fff;
+    }
+
+    /* Quiz Form */
+    #quiz-form input,
+    #quiz-form select {
+      margin-bottom: 15px;
+    }
+
+    #quiz-form button {
+      background-color: #3498db;
+    }
+
+    #quiz-form button:hover {
       background-color: #2980b9;
-    }
-
-    #add-video {
-      background-color: #2ecc71;
-      margin-top: -10px;
-    }
-
-    #add-video:hover {
-      background-color: #27ae60;
     }
 
     /* Course List Styles */
     #course-list {
       list-style-type: none;
       padding: 0;
-      margin: 0 auto;
-      max-width: 600px;
+      margin: 0;
     }
 
     #course-list li {
       background: #fff;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
       margin-bottom: 15px;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      text-align: center;
+      justify-content: space-between;
+      transition: transform 0.3s ease;
+    }
+
+    #course-list li:hover {
+      transform: scale(1.02);
     }
 
     #course-list img {
-      max-width: 100%;
-      border-radius: 10px;
-      margin-bottom: 15px;
+      max-width: 100px;
+      border-radius: 6px;
+      margin-right: 20px;
     }
 
-    .edit-btn, .delete-btn {
+    #course-list .actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .edit-btn,
+    .delete-btn {
       padding: 8px 15px;
-      margin-top: 10px;
-      width: 48%;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       color: white;
       cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: background-color 0.3s ease;
     }
 
     .edit-btn {
@@ -119,11 +198,39 @@
       background-color: #c0392b;
     }
 
+    /* General Placeholder Styles */
+    input::placeholder,
+    textarea::placeholder,
+    select::placeholder {
+      color: #aaa;
+      /* Light grey color for placeholders */
+      font-size: 1rem;
+      /* Same font size as input text */
+      font-weight: 400;
+      /* Lighter weight to differentiate from actual text */
+      font-family: 'Roboto-Regular', sans-serif;
+      /* Use the same font as input text */
+      color: #822dd8;
+      /* Change color on focus for better visibility */
+      font-weight: 700;
+    }
+
+    /* Focused Placeholder Styles */
+    input:focus::placeholder,
+    textarea:focus::placeholder,
+    select:focus::placeholder {
+      color: #822dd8;
+      /* Change color on focus for better visibility */
+      font-weight: 700;
+      /* Slightly bolder for emphasis */
+    }
+
+
     /* Loading Spinner */
     .loading-spinner {
       display: none;
-      border: 8px solid #f3f3f3; /* Light grey */
-      border-top: 8px solid #3498db; /* Blue */
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #3498db;
       border-radius: 50%;
       width: 60px;
       height: 60px;
@@ -132,37 +239,31 @@
     }
 
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
     /* Logout Button */
     #logout-button {
       background-color: #e74c3c;
-      margin: 0 auto;
-      display: block;
       padding: 10px 20px;
-      border-radius: 5px;
+      border-radius: 6px;
       text-align: center;
+      color: white;
+      display: block;
+      margin: 20px auto;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
     }
 
     #logout-button:hover {
       background-color: #c0392b;
-    }
-
-    /* Notification Styles */
-    #notification-form {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    #notification-message {
-      height: 100px;
-      resize: vertical;
     }
 
     /* Responsive Design */
@@ -180,66 +281,93 @@
         font-size: 0.9rem;
       }
 
-      .edit-btn, .delete-btn {
+      .edit-btn,
+      .delete-btn {
         width: 100%;
         margin-top: 5px;
       }
     }
   </style>
 </head>
+
 <body>
-  <h1>Admin Panel</h1>
+  <div class="form-container">
+    <h1>Admin Panel</h1>
 
-  <!-- Course Form -->
-  <form id="course-form">
-    <input type="text" id="course-name" placeholder="Course Name" required>
-    <textarea id="course-description" placeholder="Course Description" required></textarea>
-    <input type="file" id="course-img" accept="image/*" required>
-    <img id="course-img-preview" style="display: none;">
-    <select id="course-category" required>
-      <option value="" disabled selected>Select Category</option>
-      <option value="programming">Programming</option>
-      <option value="design">Design</option>
-    </select>
-    <input type="text" id="course-tags" placeholder="Tags (comma-separated)" required>
-    <div id="video-fields">
-      <div class="video-field">
-        <label for="video-file-0">Video File:</label>
-        <input type="file" id="video-file-0" class="video-file" accept="video/*" required>
-        <label for="video-thumb-0">Video Thumbnail:</label>
-        <input type="file" id="video-thumb-0" class="video-thumb" accept="image/*">
-        <input type="text" id="video-name-0" class="video-name" placeholder="Video Name" required>
+    <!-- Course Form -->
+    <form id="course-form">
+      <h2><i class="fas fa-book"></i> Add New Course</h2>
+      <input type="text" id="course-name" placeholder="Enter Course Name" value="Introduction to Web Development"
+        required>
+      <textarea id="course-description" placeholder="Enter Course Description"
+        required>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</textarea>
+      <input type="file" id="course-img" accept="image/*" required>
+      <img id="course-img-preview" style="display: none; max-width: 100%; border-radius: 6px; margin-bottom: 10px;">
+      <select id="course-category" required>
+        <option value="" disabled selected>Select Category</option>
+        <option value="programming">Programming</option>
+        <option value="design">Design</option>
+      </select>
+      <input type="text" id="course-tags" placeholder="Enter Tags (comma-separated)"
+        value="web, development, programming" required>
+      <div id="video-fields">
+        <div class="video-field">
+          <label for="video-file-0"><i class="fas fa-video"></i> Video File:</label>
+          <input type="file" id="video-file-0" class="video-file" accept="video/*" required>
+          <label for="video-thumb-0"><i class="fas fa-image"></i> Video Thumbnail:</label>
+          <input type="file" id="video-thumb-0" class="video-thumb" accept="image/*">
+          <input type="text" id="video-name-0" class="video-name" placeholder="Enter Video Name" required>
+        </div>
       </div>
-    </div>
-    <button type="button" id="add-video">Add Video</button>
-    <button type="submit">Submit</button>
-  </form>
+      <button type="button" id="add-video"><i class="fas fa-plus"></i> Add Video</button>
+      <button type="submit"><i class="fas fa-save"></i> Save Course</button>
+    </form>
 
-<!-- Email Notification Form -->
-<div id="email-notification-form">
-  <h2>Send Email Notification</h2>
-  <form id="emailForm">
-    <label for="recipientEmail">Recipient Email:</label>
-    <input type="email" id="recipientEmail" required>
+    <!-- PDF Upload Form -->
+    <form id="pdf-upload-form">
+      <h2><i class="fas fa-file-pdf"></i> Upload PDF</h2>
+      <input type="file" id="pdf-file" accept=".pdf" required>
+      <button type="submit"><i class="fas fa-upload"></i> Upload PDF</button>
+    </form>
 
-    <label for="subject">Subject:</label>
-    <input type="text" id="subject" required>
+    <!-- Quiz Form -->
+    <form id="quiz-form">
+      <h2><i class="fas fa-question-circle"></i> Create Quiz</h2>
+      <input type="text" id="question-1" placeholder="Question 1" required>
+      <input type="text" id="answer-1" placeholder="Answer 1" required>
+      <input type="text" id="question-2" placeholder="Question 2" required>
+      <input type="text" id="answer-2" placeholder="Answer 2" required>
+      <select id="quiz-category" required>
+        <option value="" disabled selected>Select Category</option>
+        <option value="programming">Programming</option>
+        <option value="design">Design</option>
+      </select>
+      <button type="submit"><i class="fas fa-check"></i> Create Quiz</button>
+    </form>
 
-    <label for="message">Message:</label>
-    <textarea id="message" required></textarea>
+    <!-- Course List -->
+    <h2><i class="fas fa-list"></i> Course List</h2>
+    <ul id="course-list">
+      <!-- Example Item -->
+      <li>
+        <img src="course-img.jpg" alt="Course Image">
+        <div>
+          <h3>Introduction to Web Development</h3>
+          <p>Learn the basics of web development with hands-on examples and projects.</p>
+          <div class="actions">
+            <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
+            <button class="delete-btn"><i class="fas fa-trash"></i> Delete</button>
+          </div>
+        </div>
+      </li>
+    </ul>
 
-    <button type="submit">Send Email</button>
-  </form>
-</div>
+    <!-- Loading Spinner -->
+    <div class="loading-spinner"></div>
 
-
-  <!-- Course List -->
-  <ul id="course-list"></ul>
-
-  <!-- Loading Spinner -->
-  <div class="loading-spinner"></div>
-
-  <!-- Logout Button -->
-  <button id="logout-button">Logout</button>
+    <!-- Logout Button -->
+    <a href="#" id="logout-button"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
 </body>
+
 </html>

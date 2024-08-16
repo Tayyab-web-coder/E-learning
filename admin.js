@@ -2,7 +2,7 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js';
 import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, getDocs, getDoc } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-firestore.js';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-storage.js';
-import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js';
+import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js';
 // import { getFunctions, httpsCallable } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-functions.js'; // Import functions
 // import firebase from 'firebase/app';
 // import './firebase/functions';/
@@ -32,6 +32,7 @@ const courseImgPreview = document.getElementById('course-img-preview');
 const videoFieldsContainer = document.getElementById('video-fields');
 const addVideoButton = document.getElementById('add-video');
 const courseList = document.getElementById('course-list');
+// const logoutButton = document.getElementById('logout-btn'); // Logout button
 
 // Handle Authentication
 onAuthStateChanged(auth, async (user) => {
@@ -185,91 +186,90 @@ async function loadCourses() {
         <img src="${data.image}" alt="Course Image" style="max-width: 100px;">
         <h4>${data.name}</h4>
         <p>${data.description}</p>
-        <button data-id="${doc.id}" class="edit-btn">Edit</button>
-        <button data-id="${doc.id}" class="delete-btn">Delete</button>
+        <button data-id="${doc.id}" class="edit-course">Edit</button>
+        <button data-id="${doc.id}" class="delete-course">Delete</button>
       `;
       courseList.appendChild(listItem);
     });
-    setupEditDeleteButtons();
+
+    // Add event listeners for edit and delete buttons
+    document.querySelectorAll('.edit-course').forEach(button => {
+      button.addEventListener('click', (e) => {
+        const courseId = e.target.getAttribute('data-id');
+        loadCourseForEditing(courseId);
+      });
+    });
+
+    document.querySelectorAll('.delete-course').forEach(button => {
+      button.addEventListener('click', async (e) => {
+        const courseId = e.target.getAttribute('data-id');
+        if (confirm('Are you sure you want to delete this course?')) {
+          await deleteDoc(doc(db, 'courses', courseId));
+          loadCourses(); // Refresh course list
+        }
+      });
+    });
+
   } catch (error) {
     console.error('Error loading courses:', error);
   }
 }
 
-// Complete the delete button functionality
-function setupEditDeleteButtons() {
-  document.querySelectorAll('.edit-btn').forEach(button => {
-    button.addEventListener('click', async (e) => {
-      const courseId = e.target.getAttribute('data-id');
-      try {
-        const courseDocRef = doc(db, 'courses', courseId);
-        const courseDoc = await getDoc(courseDocRef);
-        if (courseDoc.exists()) {
-          const courseData = courseDoc.data();
-          courseNameInput.value = courseData.name;
-          courseDescriptionInput.value = courseData.description;
-          courseImgPreview.src = courseData.image;
-          courseImgPreview.style.display = 'block';
-          courseForm.setAttribute('data-edit-id', courseId);
-        }
-      } catch (error) {
-        console.error('Error fetching course data:', error);
-      }
-    });
-  });
+// Load Course for Editing
+async function loadCourseForEditing(courseId) {
+  try {
+    const courseDocRef = doc(db, 'courses', courseId);
+    const courseDoc = await getDoc(courseDocRef);
+    const data = courseDoc.data();
 
-  document.querySelectorAll('.delete-btn').forEach(button => {
-    button.addEventListener('click', async (e) => {
-      const courseId = e.target.getAttribute('data-id');
-      try {
-        const courseDocRef = doc(db, 'courses', courseId);
-        await deleteDoc(courseDocRef);
-        alert('Course deleted successfully!');
-        loadCourses(); // Refresh course list
-      } catch (error) {
-        console.error('Error deleting course:', error);
-        alert('Error deleting course. Please try again.');
-      }
-    });
-  });
-}
-
-// Initial Load of Courses
-loadCourses();
-// Email Notification Functionality
-const emailForm = document.getElementById('emailForm');
-const recipientEmailInput = document.getElementById('recipientEmail');
-const subjectInput = document.getElementById('subject');
-const messageInput = document.getElementById('message');
-
-emailForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  // Make an API call to your server to send an email using SendGrid
-  fetch('/send-email', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      recipientEmail: recipientEmailInput.value,
-      subject: subjectInput.value,
-      message: messageInput.value
-    })
-  })
-  .then(response => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      throw new Error('Failed to send email');
+    courseNameInput.value = data.name;
+    courseDescriptionInput.value = data.description;
+    if (data.image) {
+      courseImgPreview.src = data.image;
+      courseImgPreview.style.display = 'block';
     }
-  })
-  .then(data => {
-    console.log('Email sent successfully:', data);
-    alert('Email sent successfully!');
-  })
-  .catch(error => {
-    console.error('Error sending email:', error);
-    alert('Error sending email. Please try again.');
-  });
+    // Clear existing video fields and add new ones
+    videoFieldsContainer.innerHTML = '';
+    data.videos.forEach((video, index) => {
+      const videoFieldHTML = `
+        <div class="video-field">
+          <label for="video-file-${index}">Video File:</label>
+          <input type="file" id="video-file-${index}" class="video-file" accept="video/*">
+          <label for="video-thumb-${index}">Video Thumbnail:</label>
+          <input type="file" id="video-thumb-${index}" class="video-thumb" accept="image/*">
+          <input type="text" id="video-name-${index}" class="video-name" value="${video.name}" placeholder="Video Name">
+        </div>
+      `;
+      videoFieldsContainer.insertAdjacentHTML('beforeend', videoFieldHTML);
+      // Set thumbnail preview if available
+      if (video.thumbnail) {
+        const thumbInput = document.getElementById(`video-thumb-${index}`);
+        const thumbPreview = document.createElement('img');
+        thumbPreview.src = video.thumbnail;
+        thumbPreview.style.maxWidth = '100px';
+        thumbInput.parentElement.appendChild(thumbPreview);
+      }
+    });
+    // Set course ID for editing
+    courseForm.setAttribute('data-edit-id', courseId);
+
+  } catch (error) {
+    console.error('Error loading course for editing:', error);
+  }
+}
+let logoutButton = document.getElementById('logout-button'); // Updated ID
+
+// Logout Functionality
+logoutButton.addEventListener('click', async () => {
+  try {
+    await signOut(auth);
+    alert('You have been logged out.');
+    window.location.href = 'login.html'; // Redirect to login page
+  } catch (error) {
+    console.error('Error signing out:', error);
+    alert('Error signing out. Please try again.');
+  }
 });
+
+// Initial Load
+loadCourses();

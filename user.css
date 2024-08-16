@@ -112,8 +112,8 @@ nav {
 /* Dropdown default state (hidden) */
 .dropdown {
     text-align: center;
-    display: none;
-    position: absolute;
+    /* display: none; */
+    /* position: absolute; */
     top: 40px; /* Adjust as needed */
     right: -80px;
     background-color: white;

@@ -208,7 +208,7 @@
       <img src="./image/file.png" alt="Hero_img">
     </div>
   </section>
-<!-- 
+
 
   <section class="bottom-content">
     <section class="testmonial">
@@ -568,55 +568,51 @@
       <div class="footer-bottom">
         <h1>Copyright <i class="fa-solid fa-at"></i> 2024 by Tayyab Irshad</h1>
       </div>
-  </footer>  -->
+  </footer>  
 
   <div id="loading" style="display:none;">Loading...</div>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var swiper = new Swiper(".mySwiper", {
-        effect: "coverflow",
-        grabCursor: true,
+   document.addEventListener('DOMContentLoaded', function () {
+  var swiper = new Swiper(".mySwiper", {
+    effect: "coverflow",
+    grabCursor: true,
+    slidesPerView: 1, // Default for larger screens
+    spaceBetween: 30, // Adjust space between slides as needed
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      modifier: 1,
+      slideShadows: false,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    breakpoints: {
+      500: {
         slidesPerView: 3,
-        spaceBetween: 0,
-        coverflowEffect: {
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: false,
-        },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-        breakpoints: {
-          768: {
-            slidesPerView: 1,
-            spaceBetween: 0,
-          },
-          300: {
-            slidesPerView: 1,
-            spaceBetween: 0,
-          },
-        },
-        on: {
-          init: function () {
-            updateCounter(this);
-          },
-          slideChange: function () {
-            updateCounter(this);
-          }
-        }
-      });
-
-      function updateCounter(swiper) {
-        const currentSlide = swiper.activeIndex + 1;
-        const totalSlides = swiper.slides.length;
-        document.querySelector('.swiper-counter .current-slide').textContent = currentSlide;
-        document.querySelector('.swiper-counter .total-slides').textContent = totalSlides;
+        spaceBetween: 10, 
       }
-    });
+    },
+    on: {
+      init: function () {
+        updateCounter(this);
+      },
+      slideChange: function () {
+        updateCounter(this);
+      }
+    }
+  });
+
+  function updateCounter(swiper) {
+    const currentSlide = swiper.activeIndex + 1;
+    const totalSlides = swiper.slides.length;
+    document.querySelector('.swiper-counter .current-slide').textContent = currentSlide;
+    document.querySelector('.swiper-counter .total-slides').textContent = totalSlides;
+  }
+});
 
   </script>
   <script src="main.js"></script>

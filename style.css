@@ -1314,7 +1314,11 @@ button {
 
     .instructor-left {
         padding-bottom: 50px;
-        width: 100%;
+        width: 78%;
+        padding: 0px 0px;
+    }
+    .instructor-left p{
+        width: 90%;
     }
     .instructor-right {
         height: 100%;
@@ -1323,11 +1327,19 @@ button {
         margin-bottom: 450px;
         margin-right: 200px;
     }
+    .perks div {
+        padding-left: 0px;
+        flex-direction: column;
+    }
+    .perks .perks-button {
+        width: 80%;
+    }
 }
 
 .bottom-content {
     width: 100%;
     height: auto;
+    overflow-x: hidden;
     background: linear-gradient(140deg, #B06DF5, rgba(252, 98, 241, 0.9));
 }
 
@@ -1486,18 +1498,27 @@ button {
 }
 
 @media (max-width:968px) {
+    .bottom-content{
+        min-height: 200vh;
+        position: relative;
+        top: 300px;
+    }
+    .testmonial{
+        position: relative;
+        /* top: 40000px; */
+    }
     .swiper-controls {
         left: 38%;
         width: 25%;
-        top: 65%;
+        top: 300px;
     }
 }
 
 @media (max-width:576px) {
     .swiper-controls {
-        left: 28%;
+        left: 20px;
         width: 45%;
-        top: 110%;
+        top: 210px;
     }
 
     .testmonial-header {

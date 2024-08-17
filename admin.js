@@ -182,6 +182,7 @@ async function loadCourses() {
     coursesSnapshot.forEach((doc) => {
       const data = doc.data();
       const listItem = document.createElement('li');
+      listItem.classList.add('tilt')
       listItem.innerHTML = `
         <img src="${data.image}" alt="Course Image" style="max-width: 100px;">
         <h4>${data.name}</h4>

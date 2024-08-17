@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const data = doc.data();
       const listItem = document.createElement('li');
       listItem.classList.add('course-item');
+      listItem.classList.add('tilt')
       listItem.innerHTML = `
         <img class='course-item-img'  src="${data.image}" alt="${data.name}" onerror="this.onerror=null; this.src='default-image.jpg';">
         <h1>${data.name}</h1>

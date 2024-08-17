@@ -30,6 +30,8 @@ document.addEventListener('DOMContentLoaded', async () => {
           if (courseDoc.exists()) {
             const courseData = courseDoc.data();
             const courseItem = document.createElement('div');
+            courseItem.classList.add('tilt')
+
             courseItem.innerHTML = `
               <img src="${courseData.image}" alt="${courseData.name}" style="width:100px;height:100px;">
               <h3>${courseData.name}</h3>

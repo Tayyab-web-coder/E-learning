@@ -26,7 +26,7 @@ const displayCourses = async () => {
             listItem.onclick = () => {
                 window.location.href = `course-detail.html?id=${doc.id}`;
             };
-
+            listItem.classList.add('tilt')
             listItem.innerHTML = `
           <img src="${data.image}" alt="${data.name}" onerror="this.onerror=null; this.src='default-image.jpg';">
           <span>${data.name}</span>

@@ -1157,7 +1157,7 @@ button {
 @media (max-width:1130px) {
     .popular-courses{
         position: relative;
-        top: 200px;
+        top: 230px;
     }
     .popular-course-header p {
         width: 300px;

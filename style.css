@@ -1031,6 +1031,7 @@ button {
     justify-content: center;
     gap: 30px;
     padding: 100px 100px;
+    overflow-x: hidden;
 }
 
 .popular-course-header {
@@ -1175,6 +1176,7 @@ button {
     align-items: center;
     justify-content: space-evenly;
     padding: 0px 130px;
+    overflow: hidden;
 }
 
 .instructor-left {
@@ -1317,9 +1319,54 @@ button {
         width: 78%;
         padding: 0px 0px;
     }
-    .instructor-left p{
+
+    .instructor-left p {
         width: 90%;
     }
+
+    .instructor-right {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        margin-bottom: 450px;
+        margin-right: 100px;
+    }
+
+    .perks div {
+        padding-left: 20px;
+        flex-direction: column;
+    }
+
+    .perks .perks-button {
+        width: 80%;
+    }
+
+    .instructor-right img {
+        top: 55px;
+        left: 14%;
+    }
+
+}
+
+@media (max-width:600px) {
+    .instructor {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        top: 300px;
+        padding: 0;
+    }
+
+    .instructor-left {
+        padding-bottom: 50px;
+        width: 78%;
+        padding: 0px 0px;
+    }
+
+    .instructor-left p {
+        width: 90%;
+    }
+
     .instructor-right {
         height: 100%;
         width: 100%;
@@ -1327,10 +1374,12 @@ button {
         margin-bottom: 450px;
         margin-right: 200px;
     }
+
     .perks div {
         padding-left: 0px;
         flex-direction: column;
     }
+
     .perks .perks-button {
         width: 80%;
     }
@@ -1349,6 +1398,7 @@ button {
     display: flex;
     flex-direction: column;
     gap: 50px;
+    overflow: hidden;
 }
 
 .testmonial-header {
@@ -1466,7 +1516,7 @@ button {
     position: absolute;
     left: 42%;
     width: 15%;
-    top: 55%;
+    top: 270px;
     z-index: 10;
 }
 
@@ -1498,15 +1548,17 @@ button {
 }
 
 @media (max-width:968px) {
-    .bottom-content{
+    .bottom-content {
         min-height: 200vh;
         position: relative;
         top: 300px;
     }
-    .testmonial{
+
+    .testmonial {
         position: relative;
         /* top: 40000px; */
     }
+
     .swiper-controls {
         left: 38%;
         width: 25%;
@@ -1516,9 +1568,9 @@ button {
 
 @media (max-width:576px) {
     .swiper-controls {
-        left: 20px;
+        left: 80px;
         width: 45%;
-        top: 210px;
+        top: 280px;
     }
 
     .testmonial-header {
@@ -1533,9 +1585,10 @@ button {
         width: 100%;
     }
 
-    .profile-card {
-        height: 250px;
 
+    .profile-card {
+        width: 300px;
+        height: 250px;
     }
 }
 

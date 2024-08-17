@@ -1317,7 +1317,7 @@ button {
         flex-direction: column;
         position: relative;
         top: 400px;
-        padding-top: 100px;
+        padding-top: 130px;
     }
 
     .instructor-left {
@@ -1391,7 +1391,7 @@ button {
     }
     .instructor-right img {
         top: 55px;
-        left: 90px;
+        left: 120px;
     }
 }
 
@@ -1578,7 +1578,7 @@ button {
 
 @media (max-width:576px) {
     .swiper-controls {
-        left: 80px;
+        left: 100px;
         width: 45%;
         top: 280px;
     }
@@ -1807,7 +1807,7 @@ footer {
 
 @media (max-width:968px) {
     footer{
-        min-height: 100vh;
+        min-height: 130vh;
     }
     .footer-top {
         display: flex;

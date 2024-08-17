@@ -1388,6 +1388,10 @@ button {
     .perks .perks-button {
         width: 80%;
     }
+    .instructor-right img {
+        top: 55px;
+        left: 18%;
+    }
 }
 
 .bottom-content {

@@ -947,7 +947,7 @@ button {
         width: 100%;
         display: flex;
         flex-direction: column;
-        top:300px;
+        top: 300px;
 
     }
 
@@ -1154,11 +1154,13 @@ button {
     top: 20px;
     left: 22px;
 }
+
 @media (max-width:1130px) {
-    .popular-courses{
+    .popular-courses {
         position: relative;
         top: 230px;
     }
+
     .popular-course-header p {
         width: 300px;
     }
@@ -1264,7 +1266,7 @@ button {
     height: 100%;
     width: 40%;
     position: relative;
-    margin-bottom: 100px;
+    margin-bottom: 430px;
     margin-right: 100px;
 }
 
@@ -1272,7 +1274,7 @@ button {
     width: 350px;
     height: 250px;
     position: absolute;
-    top: 27%;
+    top: 55px;
     left: 23%;
     object-fit: cover;
 }
@@ -1283,7 +1285,7 @@ button {
     height: 300px;
     background: linear-gradient(140deg, #822dd8, rgba(252, 98, 241, 0.9));
     position: absolute;
-    top: 130px;
+    top: 35px;
     left: 150px;
     border-bottom-left-radius: 150px;
     border-bottom-right-radius: 150px;
@@ -1294,7 +1296,7 @@ button {
     position: absolute;
     width: 300px;
     height: 350px;
-    top: 102px;
+    top: 10px;
     left: 123px;
     border-bottom-left-radius: 180px;
     border-bottom-right-radius: 180px;
@@ -1305,7 +1307,21 @@ button {
     .instructor {
         display: flex;
         flex-direction: column;
-        min-height: 230vh;
+        position: relative;
+        top: 300px;
+        padding: 0;
+    }
+
+    .instructor-left {
+        padding-bottom: 50px;
+        width: 100%;
+    }
+    .instructor-right {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        margin-bottom: 450px;
+        margin-right: 200px;
     }
 }
 

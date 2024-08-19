@@ -347,6 +347,7 @@ button {
     margin-bottom: 30px;
     position: absolute;
     left: 16px;
+    object-fit: cover;
 }
 
 .hero-join-content {
@@ -419,6 +420,7 @@ button {
 .hero-students-img img:nth-child(1) {
     position: absolute;
     left: 55px;
+    
 }
 
 .hero-students-img img:nth-child(2) {

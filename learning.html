@@ -6,11 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course Playlist</title>
     <style>
-        :root {
-    --primary: linear-gradient(to bottom right, #0a0057, #3f00ee);
-    --secondary: gold;
-    --text: #fff;
-}
+
 
 * {
     margin: 0;
@@ -20,7 +16,7 @@
 
 body {
     min-height: 100vh;
-    background-image: var(--primary);
+    background: linear-gradient(140deg, #B06DF5, rgba(252, 98, 241, 0.9));
     font-family: sans-serif;
     color: var(--text);
     display: flex;
@@ -113,6 +109,7 @@ body {
 }
 
 .video h3 {
+    padding-top: 15px;
     width: 23rem;
     white-space: nowrap;
     overflow: hidden;
@@ -121,11 +118,11 @@ body {
     padding: 0 0.5rem;
 }
 .video-playlist .videos .video.active {
-    background-color: #333;
+    background-color:#0006;
     color: var(--secondary);
 }
 .course-progress {
-    margin: 20px 0;
+    margin: 30px 0;
 }
 
 #courseProgressBar {

@@ -82,6 +82,7 @@ nav {
     display: flex;
     align-items: center;
     padding-right: 50px;
+    gap: 40px;
 }
 
 .notification-icon {
@@ -89,14 +90,31 @@ nav {
     margin-right: 20px;
     cursor: pointer;
 }
+.top-btn {
+    cursor: pointer;
+    font-family: Roboto-Bold;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    background: linear-gradient(140deg, #B06DF5, rgba(252, 98, 241, 0.9));
+    border-radius: 5px;
+    font-size: 15px;
+    color: #000;
+}
 
+.top-btn a {
+    color: #000;
+}
+/* User icon container */
+/* User icon container */
 .user-icon {
     position: relative;
     cursor: pointer;
     display: flex;
-    flex-direction: column;
+    align-items: center; /* Center items vertically */
 }
 
+/* User initials style */
 #user-initials {
     background: linear-gradient(140deg, #B06DF5, rgba(252, 98, 241, 0.9));
     font-size: 18px;
@@ -104,23 +122,21 @@ nav {
     padding: 10px 15px;
     border-radius: 50%;
     font-family: Roboto-Regular;
-    font-weight: 900;
-    position: absolute;
-    top: -20px;
+    color: white; /* Ensure text color contrasts with background */
+    text-align: center; /* Center text horizontally */
 }
 
 /* Dropdown default state (hidden) */
 .dropdown {
-    text-align: center;
-    /* display: none; */
-    /* position: absolute; */
-    top: 40px; /* Adjust as needed */
-    right: -80px;
+    /* display: none; Hide dropdown by default */
+    position: absolute; /* Position dropdown relative to .user-icon */
+    top: 00px; /* Adjust as needed to position above the banner */
+    right: 0; /* Align to the right edge of the .user-icon */
     background-color: white;
     border: 1px solid #ddd;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    z-index: 1000;
+    z-index: 2000; /* Ensure dropdown appears above other content, including banner */
     min-width: 150px; /* Minimum width for the dropdown */
 }
 

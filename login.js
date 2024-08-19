@@ -54,20 +54,20 @@ document.getElementById('forgot-password').addEventListener('click', async (e) =
   }
 });
 
-// Define loading functions
-function showLoading() {
-  const loadingIndicator = document.getElementById('loading');
-  if (loadingIndicator) {
-    loadingIndicator.style.display = 'block';
-  }
-}
+// // Define loading functions
+// function showLoading() {
+//   const loadingIndicator = document.getElementById('loading');
+//   if (loadingIndicator) {
+//     loadingIndicator.style.display = 'block';
+//   }
+// }
 
-function hideLoading() {
-  const loadingIndicator = document.getElementById('loading');
-  if (loadingIndicator) {
-    loadingIndicator.style.display = 'none';
-  }
-}
+// function hideLoading() {
+//   const loadingIndicator = document.getElementById('loading');
+//   if (loadingIndicator) {
+//     loadingIndicator.style.display = 'none';
+//   }
+// }
 
 // Handle user redirection
 async function handleUserRedirection(user) {
@@ -97,7 +97,7 @@ onAuthStateChanged(auth, (user) => {
   if (user && !isRegistering) {
       handleUserRedirection(user);
   } else {
-      hideLoading();
+      // hideLoading();
   }
 });
 
@@ -105,7 +105,7 @@ onAuthStateChanged(auth, (user) => {
 const loginForm = document.getElementById('login-form');
 loginForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  showLoading();
+  // showLoading();
 
   const email = document.getElementById('login-email').value;
   const password = document.getElementById('login-password').value;
@@ -133,7 +133,7 @@ loginForm.addEventListener('submit', async (e) => {
 // Handle Google login
 document.getElementById('google-login').addEventListener('click', async (e) => {
   e.preventDefault();
-  showLoading();
+  // showLoading();
 
   const provider = new GoogleAuthProvider();
   try {
@@ -147,14 +147,14 @@ document.getElementById('google-login').addEventListener('click', async (e) => {
       console.error('Google login error:', error);
       alert('Error during Google login: ' + error.message);
   } finally {
-      hideLoading();
+      // hideLoading();
   }
 });
 
 // Handle Facebook login
 document.getElementById('facebook-login').addEventListener('click', async (e) => {
   e.preventDefault();
-  showLoading();
+  // showLoading();
 
   const provider = new FacebookAuthProvider();
   try {
@@ -175,6 +175,6 @@ document.getElementById('facebook-login').addEventListener('click', async (e) =>
     console.error('Facebook login error:', error);
     alert('Error during Facebook login: ' + error.message);
   } finally {
-    hideLoading();
+    // hideLoading();
   }
 });

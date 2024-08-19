@@ -274,3 +274,24 @@ logoutButton.addEventListener('click', async () => {
 
 // Initial Load
 loadCourses();
+
+document.getElementById('emailForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  // Get form data
+  var userEmail = document.getElementById('user_email').value;
+  var subject = document.getElementById('subject').value;
+  var message = document.getElementById('message').value;
+
+  // Send email
+  emailjs.send('service_bmihnmh', 'template_ui0hmhu', {
+      user_email: userEmail,
+      subject: subject,
+      message: message,
+  })
+  .then(function(response) {
+      alert('Email sent successfully!', response.status, response.text);
+  }, function(error) {
+      alert('Failed to send email: ' + error.text);
+  });
+});

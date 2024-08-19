@@ -25,24 +25,31 @@ document.addEventListener('DOMContentLoaded', async () => {
       const data = doc.data();
       const listItem = document.createElement('li');
       listItem.classList.add('course-item');
-      listItem.classList.add('tilt')
+      listItem.classList.add('tilt');
       listItem.innerHTML = `
-        <img class='course-item-img'  src="${data.image}" alt="${data.name}" onerror="this.onerror=null; this.src='default-image.jpg';">
+        <img class='course-item-img' src="${data.image}" alt="${data.name}" onerror="this.onerror=null; this.src='default-image.jpg';">
         <h1>${data.name}</h1>
         <div class='course-info'>
-        <span><i class="fa-solid fa-book-open"></i> 20 Classes</span>
-        <span><i class="fa-solid fa-user"></i> 400 Students </span>
+          <span><i class="fa-solid fa-book-open"></i> 20 Classes</span>
+          <span><i class="fa-solid fa-user"></i> 400 Students</span>
         </div>
         <span class='line'></span>
         <div class='instructor-info'>
-        <h5>Free</h5>
-        <span><img src=./image/istockphoto-640933526-612x612.jpg> Jhon Smith</span>
+          <h5>Free</h5>
+          <span><img src="./image/istockphoto-640933526-612x612.jpg"> John Smith</span>
         </div>
       `;
       courseList.appendChild(listItem);
 
       listItem.addEventListener('click', () => {
         window.location.href = `course-detail.html?id=${doc.id}`;
+      });
+
+      // Apply Tilt.js effect
+      VanillaTilt.init(listItem, {
+        max: 25, // Maximum tilt angle
+        speed: 400, // Speed of the tilt effect
+        scale: 1.05, // Scaling effect
       });
     });
   } catch (error) {
@@ -56,8 +63,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       window.location.href = 'user.html';
     } else {
       console.log('No user is logged in.');
-
     }
   });
 });
+
 

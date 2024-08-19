@@ -1828,7 +1828,7 @@ footer {
     .footer-bottom {
         text-align: center;
         position: relative;
-        top: -20px;
+        top: 50px;
     }
 
     .footer-bottom h1 {
